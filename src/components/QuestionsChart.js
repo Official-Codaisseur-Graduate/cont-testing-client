@@ -8,29 +8,30 @@ import { connect } from 'react-redux'
 const { baseUrl } = setting
 
 class QuestionsChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       Data: {}
     }
-  }
+  
 
   getQuestionsData = (range) => {
-     return axios.get(`${baseUrl}/evaluations-by-question/${range}`)
-     .then(res => {
-      console.log('questions response', res)
-       const evaluations = res.data.passedPerQuestion;
-      // console.log('questions evaluations:', evaluations)
-       let questionKey = [];        
-       let studentsPassed = [];
-       let questionLabel = [];
-       evaluations.map(element => {
-         questionKey.push(element.questionKey[1]);
-         studentsPassed.push(element.studentsPassed);
-         questionLabel.push(element.questionKey)
-         
-         return null
+     return (
+       axios.get(`${baseUrl}/evaluations-by-question/${range}`)
+        .then(res => {
+          console.log('questions response', res)
+          const evaluations = res.data.passedPerQuestion;
+          // console.log('questions evaluations:', evaluations)
+          let questionKey = [];        
+          let studentsPassed = [];
+          let questionLabel = [];
+
+          evaluations.map(element => {
+            questionKey.push(element.questionKey[1]);
+            studentsPassed.push(element.studentsPassed);
+            questionLabel.push(element.questionKey)
+
+          return null
        });
+
         this.setState({
           Data: {
             labels: questionKey,
@@ -51,16 +52,17 @@ class QuestionsChart extends Component {
           }
         });
       })
+     )
   }
 
   componentDidMount() {
-    this.getQuestionsData('lastWeek')
-    //makes another request to the server every 10 seconds
-
+    this.getQuestionsData(this.props.dateRange);
+    // makes another request to the server every 10 seconds
     // setInterval(this.getQuestionsData, 10000)
   }
 
   render() {
+    this.getQuestionsData(this.props.dateRange);
     return (
       <div>
         <HorizontalBar
@@ -126,8 +128,10 @@ class QuestionsChart extends Component {
   }
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
+  return {
+    dateRange: state.dateRange
+  }
+};
 
-}
-
-export default connect()(QuestionsChart)
+export default connect(mapStateToProps, null)(QuestionsChart)
