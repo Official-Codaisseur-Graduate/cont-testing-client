@@ -50,7 +50,7 @@ export default class QuestionsPieChart extends Component {
   componentDidMount() {
     this.getQuestionsStudantsData()
      //makes another request to the server every 10 seconds
-     setInterval(this.getQuestionsStudantsData, 10000)
+    //  setInterval(this.getQuestionsStudantsData, 10000)
 
   }
   render() {
