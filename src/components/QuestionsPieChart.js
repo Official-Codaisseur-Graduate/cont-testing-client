@@ -3,12 +3,14 @@ import { Pie } from 'react-chartjs-2';
 import axios from 'axios';
 //Importing the baseUrl
 import setting from '../settings'
+import { connect } from 'react-redux'
+
 
 const { baseUrl } = setting
 
 
 
-export default class QuestionsPieChart extends Component {
+class QuestionsPieChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,8 +18,8 @@ export default class QuestionsPieChart extends Component {
     }
   }
 
-  getQuestionsStudantsData = () => {
-    axios.get(`${baseUrl}/evaluations-by-question-student`)
+  getQuestionsStudantsData = (range) => {
+    axios.get(`${baseUrl}/evaluations-by-question-student/`)
     .then(res => {
       let questions = res.data.questions
       let students = res.data.students
@@ -100,3 +102,11 @@ export default class QuestionsPieChart extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    dateRange: state.dateRange
+  }
+};
+
+export default connect(mapStateToProps, null)(QuestionsPieChart)

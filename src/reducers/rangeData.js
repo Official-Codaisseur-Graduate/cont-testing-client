@@ -1,6 +1,6 @@
-import {SET_DATA} from './../actions/actions'
+import {SET_DATA} from '../actions/actions'
 
-const initialState = null
+const initialState = 'allData'
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
