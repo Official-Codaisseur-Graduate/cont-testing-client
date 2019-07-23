@@ -1,0 +1,48 @@
+
+body {
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  
+  align-items: center;
+  /* justify-content: center; */
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Charts {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row; 
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.question {  
+  width: 40%;
+}
+
+.student {  
+  width: 40%;
+}
+
+.question-pie {
+  width: 40%;
+}
+
+.student-stack {
+  width: 40%;
+}
+
+.question-pie {
+  width: 40%;
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
