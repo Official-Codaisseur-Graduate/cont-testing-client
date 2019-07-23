@@ -23,6 +23,7 @@ class StudentsStackedChart extends Component {
         let studentName = [];
         let questionsPassed = [];
         let questionsFailed = [];
+
         evaluations.map(element => {
           studentName.push(element.studentName);
           questionsPassed.push(element.questionsPassed);
@@ -49,12 +50,13 @@ class StudentsStackedChart extends Component {
         });
       })
   }
+
   componentDidMount() {
     this.getStudentsData()
     //makes another request to the server every 10 seconds
     // setInterval(this.getStudentsData, 10000)
-
   }
+  
   render() {
     return (
       <div>

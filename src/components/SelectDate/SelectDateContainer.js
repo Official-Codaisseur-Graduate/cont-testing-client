@@ -1,26 +1,40 @@
 import React, { Component } from 'react'
 import './SelectDate.css'
+import { setDate } from './../../actions/actions'
+import { connect } from 'react-redux'
 
-export default class SelectDateContainer extends Component {
+class SelectDateContainer extends Component {
+  state = {
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.id]: event.target.value
+    })
+    console.log(this.state)
+
+    this.props.setDate(event.target.value)
+
+  }
+
+  handleSubmit = () => {
+
+  }
+
   render() {
-    const currentDate = new Date()
 
-    const lastWeek = new Date()
-
-    lastWeek.setDate(lastWeek.getDate() - 7)
-
-    console.log(currentDate)
-
-    console.log(lastWeek)
     return (
       <div>
-        <select className="select-css" name="" id="">
-          <option value="7">Last week</option>
-          <option value="30">Last Month</option>
-          <option value="365">Last Year</option>
+        <select className="select-css" name="" id="selectDate" onChange={this.handleChange}>
+        <option value="">Select range of Data</option>
+          <option value="today">Today</option>
+          <option value="lastWeek">Last week</option>
+          <option value="lastMonth">Last Month</option>
+          <option value="lastYear">Last Year</option>
         </select>
       </div>
     )
   }
 }
 
+export default connect(null, { setDate })(SelectDateContainer)

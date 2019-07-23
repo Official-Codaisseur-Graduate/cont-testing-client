@@ -23,18 +23,23 @@ class App extends Component {
 
         <br/>
         <div className="Charts">
-        <div className='question'>
-          <QuestionsChart />
-        </div>
-        <div className='student'>
-          <StudentsChart />
-        </div>
-        <div className='question-pie'>
-        <QuestionsPieChart />
-        </div>
-        <div className='student-stack'>
-        <StudentsStackedChart/>
-        </div>
+
+          <div className='question'>
+            <QuestionsChart />
+          </div>
+
+          <div className='student'>
+            <StudentsChart />
+          </div>
+
+          <div className='question-pie'>
+            <QuestionsPieChart />
+          </div>
+
+          <div className='student-stack'>
+            <StudentsStackedChart/>
+          </div>
+
         </div>
       </div>
       </Provider>

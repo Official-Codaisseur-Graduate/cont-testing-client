@@ -3,10 +3,11 @@ import { HorizontalBar } from 'react-chartjs-2';
 import axios from 'axios';
 //Importing the baseUrl
 import setting from '../settings'
+import { connect } from 'react-redux'
 
 const { baseUrl } = setting
 
-export default class QuestionsChart extends Component {
+class QuestionsChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +15,10 @@ export default class QuestionsChart extends Component {
     }
   }
 
-  getQuestionsData = () => {
-     return axios.get(`${baseUrl}/evaluations-by-question`)
+  getQuestionsData = (range) => {
+     return axios.get(`${baseUrl}/evaluations-by-question/${range}`)
      .then(res => {
-      // console.log('questions response', res)
+      console.log('questions response', res)
        const evaluations = res.data.passedPerQuestion;
       // console.log('questions evaluations:', evaluations)
        let questionKey = [];        
@@ -53,7 +54,7 @@ export default class QuestionsChart extends Component {
   }
 
   componentDidMount() {
-    this.getQuestionsData()
+    this.getQuestionsData('lastWeek')
     //makes another request to the server every 10 seconds
 
     // setInterval(this.getQuestionsData, 10000)
@@ -124,3 +125,9 @@ export default class QuestionsChart extends Component {
     )
   }
 }
+
+const mapStateToProps = () => {
+
+}
+
+export default connect()(QuestionsChart)
