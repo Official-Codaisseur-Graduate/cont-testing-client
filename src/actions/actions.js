@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const SET_DATA = 'SET_DATA'
 export const SET_QUESTCHART_DATA = 'SET_QUESTCHART_DATA'
+export const SET_QUEST_STD_DATA = 'SET_QUEST_STD_DATA'
 
 const { baseUrl } = setting
 
@@ -16,9 +17,12 @@ export const setQuestionData = (data) => ({
   payload: data
 })
 
-export const getQuestionsData = (range) => (dispatch) => {
+const setQuest_Student_Data = (data) => ({
+  type: SET_QUEST_STD_DATA,
+  payload: data
+})
 
-  console.log('getQuestionDAta is TRIGERED!!!')
+export const getQuestionsData = (range) => (dispatch) => {
   return (
     axios.get(`${baseUrl}/evaluations-by-question/${range}`)
      .then(res => {
@@ -60,4 +64,40 @@ export const getQuestionsData = (range) => (dispatch) => {
        
    })
   )
+}
+
+export const getQuestionsStudentsData = (range) => (dispatch) => {
+
+  range = range !== '' ? range : 'today'
+
+  axios.get(`${baseUrl}/evaluations-by-question-student/${range}`)
+  .then(res => {
+    let questions = res.data.questions
+    let students = res.data.students
+    let totalPassed = res.data.questionsPassed
+    let maxPassed = questions * students
+    let totalFailed = maxPassed - totalPassed
+    let pctQuestionsPassed = totalPassed / maxPassed * 100
+    let pctQuestionsFailed = totalFailed / maxPassed * 100
+    
+    const Data = {
+        labels: ['Questions Passed', 'Questions Failed' ],
+        datasets: [
+          {
+            data: [ pctQuestionsPassed, pctQuestionsFailed],
+            backgroundColor: [
+              'rgba(255,105,145,0.6)',
+              'rgba(155,100,210,0.6)',
+              'rgba(77, 228, 205, 0.6)',
+              'rgba(90,178,255,0.6)',
+              'rgba(240,134,67,0.6)',
+              'rgba(213, 50, 80, 0.6)'
+            ]
+          }
+        ]
+      }
+
+    dispatch(setQuest_Student_Data(Data))
+
+  })
 }

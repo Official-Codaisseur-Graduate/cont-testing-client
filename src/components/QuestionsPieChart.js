@@ -4,11 +4,9 @@ import axios from 'axios';
 //Importing the baseUrl
 import setting from '../settings'
 import { connect } from 'react-redux'
-
+import {getQuestionsStudentsData} from './../actions/actions'
 
 const { baseUrl } = setting
-
-
 
 class QuestionsPieChart extends Component {
   constructor(props) {
@@ -18,39 +16,39 @@ class QuestionsPieChart extends Component {
     }
   }
 
-  getQuestionsStudantsData = (range) => {
-    axios.get(`${baseUrl}/evaluations-by-question-student/`)
-    .then(res => {
-      let questions = res.data.questions
-      let students = res.data.students
-      let totalPassed = res.data.questionsPassed
-      let maxPassed = questions * students
-      let totalFailed = maxPassed - totalPassed
-      let pctQuestionsPassed = totalPassed / maxPassed * 100
-      let pctQuestionsFailed = totalFailed / maxPassed * 100
+  // getQuestionsStudantsData = (range) => {
+  //   axios.get(`${baseUrl}/evaluations-by-question-student/`)
+  //   .then(res => {
+  //     let questions = res.data.questions
+  //     let students = res.data.students
+  //     let totalPassed = res.data.questionsPassed
+  //     let maxPassed = questions * students
+  //     let totalFailed = maxPassed - totalPassed
+  //     let pctQuestionsPassed = totalPassed / maxPassed * 100
+  //     let pctQuestionsFailed = totalFailed / maxPassed * 100
       
-      this.setState({
-        Data: {
-          labels: ['Questions Passed', 'Questions Failed' ],
-          datasets: [
-            {
-              data: [ pctQuestionsPassed, pctQuestionsFailed],
-              backgroundColor: [
-                'rgba(255,105,145,0.6)',
-                'rgba(155,100,210,0.6)',
-                'rgba(77, 228, 205, 0.6)',
-                'rgba(90,178,255,0.6)',
-                'rgba(240,134,67,0.6)',
-                'rgba(213, 50, 80, 0.6)'
-              ]
-            }
-          ]
-        }
-      });
-    })
-  }
+  //     this.setState({
+  //       Data: {
+  //         labels: ['Questions Passed', 'Questions Failed' ],
+  //         datasets: [
+  //           {
+  //             data: [ pctQuestionsPassed, pctQuestionsFailed],
+  //             backgroundColor: [
+  //               'rgba(255,105,145,0.6)',
+  //               'rgba(155,100,210,0.6)',
+  //               'rgba(77, 228, 205, 0.6)',
+  //               'rgba(90,178,255,0.6)',
+  //               'rgba(240,134,67,0.6)',
+  //               'rgba(213, 50, 80, 0.6)'
+  //             ]
+  //           }
+  //         ]
+  //       }
+  //     });
+  //   })
+  // }
   componentDidMount() {
-    this.getQuestionsStudantsData()
+    this.props.getQuestionsStudentsData()
      //makes another request to the server every 10 seconds
     // setInterval(this.getQuestionsStudantsData, 10000)
 
@@ -60,7 +58,7 @@ class QuestionsPieChart extends Component {
       <div>
         <Pie
           type='pie'
-          data={this.state.Data}
+          data={this.props.questStudentChart}
           height={350}
           width={350}
           options={{
@@ -105,8 +103,9 @@ class QuestionsPieChart extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    dateRange: state.dateRange
+    dateRange: state.dateRange,
+    questStudentChart: state.questStudentChart
   }
 };
 
-export default connect(mapStateToProps, null)(QuestionsPieChart)
+export default connect(mapStateToProps, {getQuestionsStudentsData})(QuestionsPieChart)
