@@ -147,6 +147,7 @@ export const getStudentsData = (range) => (dispatch) => {
 }
 
 export const getStudentsStackData = (range) => (dispatch) => {
+  
   return axios.get(`${baseUrl}/stack-evaluations-by-student/${range}`)
     .then(res => {
       const evaluations = res.data.attemptedPerStudent;

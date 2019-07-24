@@ -55,4 +55,4 @@ This continuous testing project was developed by
 - [Rafael Olivares](https://github.com/rafaelrolivares)
 - [Pedro Abel Diaz](https://github.com/coderhook)
 
-As three graduates of the Codaisseur Academy in Amsterdam we developed this tool with the help of Rein op ‘t Land and Kelley van Evert -  teachers and developers at Codaisseur. 
+As graduates of the Codaisseur Academy in Amsterdam we developed this tool with the help of Rein op ‘t Land and Kelley van Evert -  teachers and developers at Codaisseur. 
