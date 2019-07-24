@@ -36,7 +36,7 @@ const setQuest_STACK_Data = (data) => ({
 
 export const getQuestionsData = (range) => (dispatch) => {
   return (
-    axios.get(`${baseUrl}/evaluations-by-question/${range}`)
+    axios.get(`${baseUrl}/evaluations-by-question/?range=${range}`)
      .then(res => {
        console.log('questions response', res)
        const evaluations = res.data.passedPerQuestion;
@@ -80,7 +80,7 @@ export const getQuestionsData = (range) => (dispatch) => {
 
 export const getQuestionsStudentsData = (range) => (dispatch) => {
 
-  axios.get(`${baseUrl}/evaluations-by-question-student/${range}`)
+  axios.get(`${baseUrl}/evaluations-by-question-student/?range=${range}`)
   .then(res => {
     let questions = res.data.questions
     let students = res.data.students
@@ -112,7 +112,7 @@ export const getQuestionsStudentsData = (range) => (dispatch) => {
 }
 
 export const getStudentsData = (range) => (dispatch) => {
-  return axios.get(`${baseUrl}/evaluations-by-student/${range}`)
+  return axios.get(`${baseUrl}/evaluations-by-student/?range=${range}`)
     .then(res => {
       const evaluations = res.data.passedPerStudent;
       let studentName = [];
@@ -147,8 +147,8 @@ export const getStudentsData = (range) => (dispatch) => {
 }
 
 export const getStudentsStackData = (range) => (dispatch) => {
-  
-  return axios.get(`${baseUrl}/stack-evaluations-by-student/${range}`)
+
+  return axios.get(`${baseUrl}/stack-evaluations-by-student/?range=${range}`)
     .then(res => {
       const evaluations = res.data.attemptedPerStudent;
       let studentName = [];

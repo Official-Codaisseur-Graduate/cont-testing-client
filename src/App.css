@@ -5,18 +5,15 @@ body {
   min-height: 100vh;
   
   align-items: center;
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .Charts {
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row; 
   justify-content: center;
-  align-items: center;
   align-items: center;
   padding: 20px;
 }
@@ -36,11 +33,6 @@ body {
 .student-stack {
   width: 40%;
 }
-
-.question-pie {
-  width: 40%;
-}
-
 
 .App-link {
   color: #61dafb;

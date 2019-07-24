@@ -20,6 +20,7 @@ class StudentsChart extends Component {
    }
 
   render() {
+    if(!this.props.passedQuestionsStudent) return 'Loading...'
     return (
       <div>
         <Bar

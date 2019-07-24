@@ -19,8 +19,10 @@ class StudentsStackedChart extends Component {
   }
   
   render() {
+    if(!this.props.stackData) return 'Loading...'
     return (
       <div>
+        
         <Bar
           data={this.props.stackData}
           width={500}

@@ -19,6 +19,7 @@ class QuestionsPieChart extends Component {
 
   }
   render() {
+    if(!this.props.questStudentChart) return 'Loading...'
     return (
       <div>
         <Pie

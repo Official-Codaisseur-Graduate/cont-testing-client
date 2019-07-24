@@ -17,7 +17,7 @@ class SelectDateContainer extends Component {
     this.props.getQuestionsStudentsData(event.target.value)
     this.props.getStudentsData(event.target.value)
     this.props.getStudentsStackData(event.target.value)
-  }
+}
 
   handleSubmit = () => {
 
@@ -28,7 +28,7 @@ class SelectDateContainer extends Component {
     return (
       <div>
         <select className="select-css" name="" id="selectDate" onChange={this.handleChange}>
-          <option value="">Select range of Data</option>
+          <option>Select range of Data</option>
           <option value="today">Today</option>
           <option value="lastWeek">Last week</option>
           <option value="lastMonth">Last Month</option>
