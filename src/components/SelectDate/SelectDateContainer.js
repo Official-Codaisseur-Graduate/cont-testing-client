@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SelectDate.css'
-import { setDate, getQuestionsData, getQuestionsStudentsData, getStudentsData } from './../../actions/actions'
+import { setDate, getQuestionsData, getQuestionsStudentsData, getStudentsData, getStudentsStackData } from './../../actions/actions'
 import { connect } from 'react-redux'
 
 class SelectDateContainer extends Component {
@@ -16,6 +16,7 @@ class SelectDateContainer extends Component {
     this.props.getQuestionsData(event.target.value);
     this.props.getQuestionsStudentsData(event.target.value)
     this.props.getStudentsData(event.target.value)
+    this.props.getStudentsStackData(event.target.value)
   }
 
   handleSubmit = () => {
@@ -47,4 +48,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, { setDate, getQuestionsData, getQuestionsStudentsData, getStudentsData })(SelectDateContainer)
+export default connect(mapStateToProps, { setDate, getQuestionsData, getQuestionsStudentsData, getStudentsData, getStudentsStackData })(SelectDateContainer)

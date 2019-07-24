@@ -5,7 +5,7 @@ export const SET_DATA = 'SET_DATA'
 export const SET_QUESTCHART_DATA = 'SET_QUESTCHART_DATA'
 export const SET_QUEST_STD_DATA = 'SET_QUEST_STD_DATA'
 export const SET_QUEST_STDS_DATA = 'SET_QUEST_STDS_DATA'
-
+export const SET_STACK_DATA = 'SET_STACK_DATA'
 
 const { baseUrl } = setting
 
@@ -26,6 +26,11 @@ const setQuest_Student_Data = (data) => ({
 
 const setQuest_StudentS_Data = (data) => ({
   type: SET_QUEST_STDS_DATA,
+  payload: data
+})
+
+const setQuest_STACK_Data = (data) => ({
+  type: SET_STACK_DATA,
   payload: data
 })
 
@@ -138,5 +143,40 @@ export const getStudentsData = (range) => (dispatch) => {
       
       dispatch(setQuest_StudentS_Data(Data))
 
+    })
+}
+
+export const getStudentsStackData = (range) => (dispatch) => {
+  return axios.get(`${baseUrl}/stack-evaluations-by-student/${range}`)
+    .then(res => {
+      const evaluations = res.data.attemptedPerStudent;
+      let studentName = [];
+      let questionsPassed = [];
+      let questionsFailed = [];
+
+      evaluations.map(element => {
+        studentName.push(element.studentName);
+        questionsPassed.push(element.questionsPassed);
+        questionsFailed.push(element.questionsFailed)
+        return null
+      });
+
+      const Data= {
+          labels: studentName,
+          datasets: [
+            {
+              label: 'Passed questions',
+              data: questionsPassed,
+              backgroundColor: 'rgba(90,178,255,0.6)'
+            },
+            {
+              label: 'Failed questions',
+              data: questionsFailed,
+              backgroundColor: 'rgba(240,134,67,0.6)'
+            }
+          ]
+        }
+
+      dispatch(setQuest_STACK_Data(Data))
     })
 }

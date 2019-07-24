@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
-import axios from 'axios';
-//Importing the baseUrl
-import setting from '../settings'
-
-const { baseUrl } = setting
-
+import { getStudentsStackData } from './../actions/actions'
+import { connect } from 'react-redux'
 
 
 class StudentsStackedChart extends Component {
@@ -16,43 +12,8 @@ class StudentsStackedChart extends Component {
     }
   }
 
-  getStudentsData = () => {
-    return axios.get(`${baseUrl}/stack-evaluations-by-student`)
-      .then(res => {
-        const evaluations = res.data.attemptedPerStudent;
-        let studentName = [];
-        let questionsPassed = [];
-        let questionsFailed = [];
-
-        evaluations.map(element => {
-          studentName.push(element.studentName);
-          questionsPassed.push(element.questionsPassed);
-          questionsFailed.push(element.questionsFailed)
-          return null
-
-        });
-        this.setState({
-          Data: {
-            labels: studentName,
-            datasets: [
-              {
-                label: 'Passed questions',
-                data: questionsPassed,
-                backgroundColor: 'rgba(90,178,255,0.6)'
-              },
-              {
-                label: 'Failed questions',
-                data: questionsFailed,
-                backgroundColor: 'rgba(240,134,67,0.6)'
-              }
-            ]
-          }
-        });
-      })
-  }
-
   componentDidMount() {
-    this.getStudentsData()
+    this.props.getStudentsStackData('today')
     //makes another request to the server every 10 seconds
     // setInterval(this.getStudentsData, 10000)
   }
@@ -61,7 +22,7 @@ class StudentsStackedChart extends Component {
     return (
       <div>
         <Bar
-          data={this.state.Data}
+          data={this.props.stackData}
           width={500}
           height={500}
           options={{
@@ -113,4 +74,11 @@ class StudentsStackedChart extends Component {
   }
 }
 
-export default StudentsStackedChart;
+const mapStateToProps = (state) => {
+  return {
+    dateRange: state.dateRange,
+    stackData: state.stackData
+  }
+};
+
+export default connect(mapStateToProps, {getStudentsStackData})(StudentsStackedChart)
