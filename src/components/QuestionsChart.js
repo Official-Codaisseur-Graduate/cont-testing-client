@@ -7,7 +7,7 @@ import { getQuestionsData } from './../actions/actions'
 class QuestionsChart extends Component {
 
   componentDidMount() {
-    this.props.getQuestionsData('allData');
+    this.props.getQuestionsData('today');
     // makes another request to the server every 10 seconds
   //  setInterval(this.getQuestionsData, 10000)
 

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Bar } from 'react-chartjs-2';
-import axios from 'axios';
-//Importing the baseUrl
-import setting from '../settings'
-
-const { baseUrl } = setting
-
-
+import { connect } from 'react-redux'
+import {getStudentsData} from './../actions/actions'
 
 class StudentsChart extends Component {
 
@@ -17,40 +12,9 @@ class StudentsChart extends Component {
     }
   }
 
-  getStudentsData = () => {
-    return axios.get(`${baseUrl}/evaluations-by-student`)
-      .then(res => {
-        const evaluations = res.data.passedPerStudent;
-        let studentName = [];
-        let questionsPassed = [];
-        evaluations.map(element => {
-          studentName.push(element.studentName);
-          questionsPassed.push(element.questionsPassed);
-          return null
-        });
-        this.setState({
-          Data: {
-            labels: studentName,
-            datasets: [
-              {
-                label: 'Passed questions',
-                data: questionsPassed,
-                backgroundColor:[
-                  'rgba(255,105,145,0.6)',
-                  'rgba(155,100,210,0.6)',
-                  'rgba(77, 228, 205, 0.6)',
-                  'rgba(90,178,255,0.6)',
-                  'rgba(240,134,67,0.6)',
-                  'rgba(213, 50, 80, 0.6)'
-               ]
-              }
-            ]
-          }
-        });
-      })
-  }
+
   componentDidMount() {
-    this.getStudentsData()
+    this.props.getStudentsData('today')
     //makes another request to the server every 30 seconds
     // setInterval(this.getStudentsData, 10000)
    }
@@ -59,7 +23,7 @@ class StudentsChart extends Component {
     return (
       <div>
         <Bar
-          data={this.state.Data}
+          data={this.props.passedQuestionsStudent}
           width={500}
           height={500}
           options={{
@@ -110,4 +74,11 @@ class StudentsChart extends Component {
   }
 }
 
-export default StudentsChart;
+const mapStateToProps = (state) => {
+  return {
+    dateRange: state.dateRange,
+    passedQuestionsStudent: state.passedQuestionsStudent
+  }
+};
+
+export default connect(mapStateToProps, { getStudentsData })(StudentsChart)

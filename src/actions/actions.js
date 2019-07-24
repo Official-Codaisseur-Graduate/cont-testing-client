@@ -4,6 +4,8 @@ import axios from 'axios'
 export const SET_DATA = 'SET_DATA'
 export const SET_QUESTCHART_DATA = 'SET_QUESTCHART_DATA'
 export const SET_QUEST_STD_DATA = 'SET_QUEST_STD_DATA'
+export const SET_QUEST_STDS_DATA = 'SET_QUEST_STDS_DATA'
+
 
 const { baseUrl } = setting
 
@@ -19,6 +21,11 @@ export const setQuestionData = (data) => ({
 
 const setQuest_Student_Data = (data) => ({
   type: SET_QUEST_STD_DATA,
+  payload: data
+})
+
+const setQuest_StudentS_Data = (data) => ({
+  type: SET_QUEST_STDS_DATA,
   payload: data
 })
 
@@ -97,4 +104,39 @@ export const getQuestionsStudentsData = (range) => (dispatch) => {
 
     dispatch(setQuest_Student_Data(Data))
   })
+}
+
+export const getStudentsData = (range) => (dispatch) => {
+  return axios.get(`${baseUrl}/evaluations-by-student/${range}`)
+    .then(res => {
+      const evaluations = res.data.passedPerStudent;
+      let studentName = [];
+      let questionsPassed = [];
+      evaluations.map(element => {
+        studentName.push(element.studentName);
+        questionsPassed.push(element.questionsPassed);
+        return null
+      });
+
+      const Data = {
+              labels: studentName,
+              datasets: [
+                {
+                  label: 'Passed questions',
+                  data: questionsPassed,
+                  backgroundColor:[
+                    'rgba(255,105,145,0.6)',
+                    'rgba(155,100,210,0.6)',
+                    'rgba(77, 228, 205, 0.6)',
+                    'rgba(90,178,255,0.6)',
+                    'rgba(240,134,67,0.6)',
+                    'rgba(213, 50, 80, 0.6)'
+                ]
+                }
+              ]
+            }
+      
+      dispatch(setQuest_StudentS_Data(Data))
+
+    })
 }
