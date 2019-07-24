@@ -1,60 +1,10 @@
 import React, { Component } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
-import axios from 'axios';
 //Importing the baseUrl
-import setting from '../settings'
 import { connect } from 'react-redux'
 import { getQuestionsData } from './../actions/actions'
-import { loadPartialConfig } from '@babel/core';
-
-const { baseUrl } = setting
 
 class QuestionsChart extends Component {
-    // state = {
-    //   Data: this.props.questionsChart
-    // }
-  
-  // getQuestionsData = (range) => {
-  //    return (
-  //      axios.get(`${baseUrl}/evaluations-by-question/${range}`)
-  //       .then(res => {
-  //         console.log('questions response', res)
-  //         const evaluations = res.data.passedPerQuestion;
-  //         // console.log('questions evaluations:', evaluations)
-  //         let questionKey = [];        
-  //         let studentsPassed = [];
-  //         let questionLabel = [];
-
-  //         evaluations.map(element => {
-  //           questionKey.push(element.questionKey[1]);
-  //           studentsPassed.push(element.studentsPassed);
-  //           questionLabel.push(element.questionKey)
-
-  //         return null
-  //      });
-
-  //       this.setState({
-  //         Data: {
-  //           labels: questionKey,
-  //           datasets: [
-  //             {
-  //               label: questionLabel,
-  //               data: studentsPassed,
-  //               backgroundColor: [
-  //                 'rgba(255,105,145,0.6)',
-  //                 'rgba(155,100,210,0.6)',
-  //                 'rgba(77, 228, 205, 0.6)',
-  //                 'rgba(90,178,255,0.6)',
-  //                 'rgba(240,134,67,0.6)',
-  //                 'rgba(213, 50, 80, 0.6)'
-  //              ]
-  //             }
-  //           ]
-  //         }
-  //       });
-  //     })
-  //    )
-  // }
 
   componentDidMount() {
     this.props.getQuestionsData('allData');
