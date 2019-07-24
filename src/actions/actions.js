@@ -68,8 +68,6 @@ export const getQuestionsData = (range) => (dispatch) => {
 
 export const getQuestionsStudentsData = (range) => (dispatch) => {
 
-  range = range !== '' ? range : 'today'
-
   axios.get(`${baseUrl}/evaluations-by-question-student/${range}`)
   .then(res => {
     let questions = res.data.questions
@@ -98,6 +96,5 @@ export const getQuestionsStudentsData = (range) => (dispatch) => {
       }
 
     dispatch(setQuest_Student_Data(Data))
-
   })
 }

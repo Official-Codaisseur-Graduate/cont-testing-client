@@ -48,7 +48,7 @@ class QuestionsPieChart extends Component {
   //   })
   // }
   componentDidMount() {
-    this.props.getQuestionsStudentsData()
+    this.props.getQuestionsStudentsData('today')
      //makes another request to the server every 10 seconds
     // setInterval(this.getQuestionsStudantsData, 10000)
 

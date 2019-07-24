@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './SelectDate.css'
-import { setDate, getQuestionsData } from './../../actions/actions'
+import { setDate, getQuestionsData, getQuestionsStudentsData } from './../../actions/actions'
 import { connect } from 'react-redux'
 
 class SelectDateContainer extends Component {
@@ -14,6 +14,7 @@ class SelectDateContainer extends Component {
 
     this.props.setDate(event.target.value)
     this.props.getQuestionsData(event.target.value);
+    this.props.getQuestionsStudentsData(event.target.value)
   }
 
   handleSubmit = () => {
@@ -45,4 +46,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, { setDate, getQuestionsData })(SelectDateContainer)
+export default connect(mapStateToProps, { setDate, getQuestionsData, getQuestionsStudentsData })(SelectDateContainer)
