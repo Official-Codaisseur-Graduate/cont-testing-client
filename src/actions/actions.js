@@ -6,6 +6,7 @@ export const SET_QUESTCHART_DATA = 'SET_QUESTCHART_DATA'
 export const SET_QUEST_STD_DATA = 'SET_QUEST_STD_DATA'
 export const SET_QUEST_STDS_DATA = 'SET_QUEST_STDS_DATA'
 export const SET_STACK_DATA = 'SET_STACK_DATA'
+export const ADD_VERSIONS = 'ADD_VERSIONS'
 
 const { baseUrl } = setting
 
@@ -33,6 +34,13 @@ const setQuest_STACK_Data = (data) => ({
   type: SET_STACK_DATA,
   payload: data
 })
+
+const addVersion = (data) => {
+  return {
+    type: ADD_VERSIONS,
+    payload: data
+  }
+}
 
 export const getQuestionsData = (range) => (dispatch) => {
   return (
@@ -181,3 +189,12 @@ export const getStudentsStackData = (range) => (dispatch) => {
       dispatch(setQuest_STACK_Data(Data))
     })
 }
+
+export const getExercisesVersions = () => (dispatch) => {
+  return axios.get(`${baseUrl}/exercises/versions`)
+    .then(res => {
+      console.log('packageVesions!!!!!',res)
+      dispatch(addVersion(res.data))
+    })
+    .catch(console.error)
+} 

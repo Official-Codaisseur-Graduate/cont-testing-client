@@ -5,6 +5,7 @@ import questionsChart from './questionsChartReducer'
 import questStudentChart from './questStudentReducer'
 import passedQuestionsStudent from './passedQuestStudentReducer'
 import stackData from './stackDataReducer'
+import packageVersions from './packageVersions'
 
 export default combineReducers({
   questions,
@@ -12,5 +13,6 @@ export default combineReducers({
   questionsChart,
   questStudentChart,
   passedQuestionsStudent,
-  stackData
+  stackData,
+  packageVersions
 });
