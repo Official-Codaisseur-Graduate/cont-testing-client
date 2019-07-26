@@ -42,9 +42,9 @@ const addVersion = (data) => {
   }
 }
 
-export const getQuestionsData = (range) => (dispatch) => {
+export const getQuestionsData = (range, version) => (dispatch) => {
   return (
-    axios.get(`${baseUrl}/evaluations-by-question/?range=${range}`)
+    axios.get(`${baseUrl}/evaluations-by-question/?range=${range}&version=${version}`)
      .then(res => {
        console.log('questions response', res)
        const evaluations = res.data.passedPerQuestion;

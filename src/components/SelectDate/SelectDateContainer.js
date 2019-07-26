@@ -10,17 +10,16 @@ class SelectDateContainer extends Component {
   }
 
   handleChange = (event) => {
-    console.log('event version', event.target.value)
-
     this.setState({range: event.target.value})
 
     if(event.target.value !== 'none') {
       this.props.setDate(event.target.value)
 
-      this.props.getQuestionsData(event.target.value);
+      this.props.getQuestionsData(event.target.value, this.state.version);
       this.props.getQuestionsStudentsData(event.target.value)
       this.props.getStudentsData(event.target.value)
       this.props.getStudentsStackData(event.target.value)
+
     }
 
 }
@@ -28,6 +27,8 @@ class SelectDateContainer extends Component {
   handleVersion = (event) => {
     console.log('event version', event.target.value)
     this.setState({version: event.target.value})
+    this.props.getQuestionsData(this.state.range, event.target.value);
+
   }
 
   componentDidMount = () => {
