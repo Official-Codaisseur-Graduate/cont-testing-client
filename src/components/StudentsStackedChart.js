@@ -20,6 +20,7 @@ class StudentsStackedChart extends Component {
   
   render() {
     if(!this.props.stackData) return 'Loading...'
+    
     return (
       <div>
         

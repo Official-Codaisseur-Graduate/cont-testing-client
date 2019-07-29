@@ -42,11 +42,10 @@ const addVersion = (data) => {
   }
 }
 
-export const getQuestionsData = (range, version) => (dispatch, getState) => {
+export const getQuestionsData = (range, version) => (dispatch) => {
   return (
     axios.get(`${baseUrl}/evaluations-by-question/?range=${range}&version=${version}`)
       .then(res => {
-        console.log('questions response', res)
         const evaluations = res.data.passedPerQuestion;
         // console.log('questions evaluations:', evaluations)
         let questionKey = [];        
@@ -86,9 +85,9 @@ export const getQuestionsData = (range, version) => (dispatch, getState) => {
   )
 }
 
-export const getQuestionsStudentsData = (range) => (dispatch) => {
+export const getQuestionsStudentsData = (range, version) => (dispatch) => {
 
-  axios.get(`${baseUrl}/evaluations-by-question-student/?range=${range}`)
+  axios.get(`${baseUrl}/evaluations-by-question-student/?range=${range}&version=${version}`)
   .then(res => {
     let questions = res.data.questions
     let students = res.data.students
@@ -119,8 +118,8 @@ export const getQuestionsStudentsData = (range) => (dispatch) => {
   })
 }
 
-export const getStudentsData = (range) => (dispatch) => {
-  return axios.get(`${baseUrl}/evaluations-by-student/?range=${range}`)
+export const getStudentsData = (range, version) => (dispatch) => {
+  return axios.get(`${baseUrl}/evaluations-by-student/?range=${range}&version=${version}`)
     .then(res => {
       const evaluations = res.data.passedPerStudent;
       let studentName = [];
@@ -154,9 +153,9 @@ export const getStudentsData = (range) => (dispatch) => {
     })
 }
 
-export const getStudentsStackData = (range) => (dispatch) => {
+export const getStudentsStackData = (range, version) => (dispatch) => {
 
-  return axios.get(`${baseUrl}/stack-evaluations-by-student/?range=${range}`)
+  return axios.get(`${baseUrl}/stack-evaluations-by-student/?range=${range}&version=${version}`)
     .then(res => {
       const evaluations = res.data.attemptedPerStudent;
       let studentName = [];

@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 
 class SelectDateContainer extends Component {
   state = {
-    range: 'today',
-    version: 'allVersions'
+    range: 'today', //initial value
+    version: 'data-transformations@1.0.0' //initial value
   }
 
   handleChange = (event) => {
@@ -23,20 +23,21 @@ class SelectDateContainer extends Component {
       setDate(value)
 
       getQuestionsData(value, this.state.version);
-      getQuestionsStudentsData(value)
-      getStudentsData(value)
-      getStudentsStackData(value)
+      getQuestionsStudentsData(value, this.state.version)
+      getStudentsData(value, this.state.version)
+      getStudentsStackData(value, this.state.version)
 
     }
-
 }
 
   handleVersion = (event) => {
     
-    console.log('event version', event.target.value)
     this.setState({version: event.target.value})
     
     this.props.getQuestionsData(this.state.range, event.target.value);
+    this.props.getQuestionsStudentsData(this.state.range, event.target.value)
+    this.props.getStudentsData(this.state.range, event.target.value)
+    this.props.getStudentsStackData(this.state.range, event.target.value)
 
   }
 
@@ -50,7 +51,6 @@ class SelectDateContainer extends Component {
     return (
       <div>
         <select className="select-css" id="selectDate" onChange={this.handleChange} name="range">
-          <option value="none">Select range of Data</option>
           <option value="today">Today</option>
           <option value="lastWeek">Last week</option>
           <option value="lastMonth">Last Month</option>
@@ -59,7 +59,6 @@ class SelectDateContainer extends Component {
         </select>
         
         <select className="select-css sel-version" id="" onChange={this.handleVersion} name="version">
-          <option value="allVersions">All Versions</option>
           {
             this.props.packageVersions.map((v, i) => {
              return <option key={i} value={v}>{v}</option>
