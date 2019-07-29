@@ -42,27 +42,27 @@ const addVersion = (data) => {
   }
 }
 
-export const getQuestionsData = (range, version) => (dispatch) => {
+export const getQuestionsData = (range, version) => (dispatch, getState) => {
   return (
     axios.get(`${baseUrl}/evaluations-by-question/?range=${range}&version=${version}`)
-     .then(res => {
-       console.log('questions response', res)
-       const evaluations = res.data.passedPerQuestion;
-       // console.log('questions evaluations:', evaluations)
-       let questionKey = [];        
-       let studentsPassed = [];
-       let questionLabel = [];
+      .then(res => {
+        console.log('questions response', res)
+        const evaluations = res.data.passedPerQuestion;
+        // console.log('questions evaluations:', evaluations)
+        let questionKey = [];        
+        let studentsPassed = [];
+        let questionLabel = [];
 
-       evaluations.map(element => {
-         questionKey.push(element.questionKey[1]);
-         studentsPassed.push(element.studentsPassed);
-         questionLabel.push(element.questionKey)
+        evaluations.map(element => {
+          questionKey.push(element.questionKey[1]);
+          studentsPassed.push(element.studentsPassed);
+          questionLabel.push(element.questionKey)
 
-       return null
-    });
+          return null
+        });
 
     // setState({Data: Data})
-    const  Data = {
+      const Data = {
          labels: questionKey,
          datasets: [
            {

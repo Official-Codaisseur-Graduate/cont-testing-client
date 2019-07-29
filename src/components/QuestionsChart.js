@@ -9,7 +9,7 @@ class QuestionsChart extends Component {
   componentDidMount() {
     this.props.getQuestionsData('today');
     // makes another request to the server every 10 seconds
-  //  setInterval(this.getQuestionsData, 10000)
+  //  setInterval(() => this.props.getQuestionsData(), 10000)
 
   }
 
