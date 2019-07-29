@@ -48,8 +48,6 @@ To install and run this app:
 1) git clone and run the server.
 https://github.com/Official-Codaisseur-Graduate/cont-testing-server
 
-
-
 2) Install the client
 
 $ git clone git@github.com:Official-Codaisseur-Graduate/cont-testing-client.git
