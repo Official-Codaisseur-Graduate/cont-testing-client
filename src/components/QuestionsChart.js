@@ -1,68 +1,25 @@
 import React, { Component } from 'react';
 import { HorizontalBar } from 'react-chartjs-2';
-import axios from 'axios';
 //Importing the baseUrl
-import setting from '../settings'
+import { connect } from 'react-redux'
+import { getQuestionsData } from './../actions/actions'
 
-const { baseUrl } = setting
-
-export default class QuestionsChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Data: {}
-    }
-  }
-
-  getQuestionsData = () => {
-     return axios.get(`${baseUrl}/evaluations-by-question`)
-     .then(res => {
-      // console.log('questions response', res)
-       const evaluations = res.data.passedPerQuestion;
-      // console.log('questions evaluations:', evaluations)
-       let questionKey = [];        
-       let studentsPassed = [];
-       let questionLabel = [];
-       evaluations.map(element => {
-         questionKey.push(element.questionKey[1]);
-         studentsPassed.push(element.studentsPassed);
-         questionLabel.push(element.questionKey)
-         
-         return null
-       });
-        this.setState({
-          Data: {
-            labels: questionKey,
-            datasets: [
-              {
-                label: questionLabel,
-                data: studentsPassed,
-                backgroundColor: [
-                  'rgba(255,105,145,0.6)',
-                  'rgba(155,100,210,0.6)',
-                  'rgba(77, 228, 205, 0.6)',
-                  'rgba(90,178,255,0.6)',
-                  'rgba(240,134,67,0.6)',
-                  'rgba(213, 50, 80, 0.6)'
-               ]
-              }
-            ]
-          }
-        });
-      })
-  }
+class QuestionsChart extends Component {
 
   componentDidMount() {
-    this.getQuestionsData()
-    //makes another request to the server every 10 seconds
-    setInterval(this.getQuestionsData, 10000)
+    this.props.getQuestionsData('today');
+    // makes another request to the server every 10 seconds
+  //  setInterval(() => this.props.getQuestionsData(), 10000)
+
   }
 
   render() {
+    if(!this.props.questionsChartData) return 'Loading...'
+
     return (
       <div>
         <HorizontalBar
-          data={this.state.Data}
+          data={this.props.questionsChartData}
           width={500}
           height={500}
           options={{
@@ -123,3 +80,12 @@ export default class QuestionsChart extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    dateRange: state.dateRange,
+    questionsChartData: state.questionsChart
+  }
+};
+
+export default connect(mapStateToProps, {getQuestionsData})(QuestionsChart)

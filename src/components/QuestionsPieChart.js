@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { Pie } from 'react-chartjs-2';
-import axios from 'axios';
-//Importing the baseUrl
-import setting from '../settings'
-
-const { baseUrl } = setting
+import { connect } from 'react-redux'
+import {getQuestionsStudentsData} from './../actions/actions'
 
 
-
-export default class QuestionsPieChart extends Component {
+class QuestionsPieChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,51 +12,21 @@ export default class QuestionsPieChart extends Component {
     }
   }
 
-  getQuestionsStudantsData = () => {
-    axios.get(`${baseUrl}/evaluations-by-question-student`)
-    .then(res => {
-      let questions = res.data.questions
-      let students = res.data.students
-      let totalPassed = res.data.questionsPassed
-      let maxPassed = questions * students
-      let totalFailed = maxPassed - totalPassed
-      let pctQuestionsPassed = totalPassed / maxPassed * 100
-      let pctQuestionsFailed = totalFailed / maxPassed * 100
-      
-      this.setState({
-        Data: {
-          labels: ['Questions Passed', 'Questions Failed' ],
-          datasets: [
-            {
-              data: [ pctQuestionsPassed, pctQuestionsFailed],
-              backgroundColor: [
-                'rgba(255,105,145,0.6)',
-                'rgba(155,100,210,0.6)',
-                'rgba(77, 228, 205, 0.6)',
-                'rgba(90,178,255,0.6)',
-                'rgba(240,134,67,0.6)',
-                'rgba(213, 50, 80, 0.6)'
-              ]
-            }
-          ]
-        }
-      });
-    })
-  }
   componentDidMount() {
-    this.getQuestionsStudantsData()
+    this.props.getQuestionsStudentsData('today')
      //makes another request to the server every 10 seconds
-     setInterval(this.getQuestionsStudantsData, 10000)
+    // setInterval(this.getQuestionsStudantsData, 10000)
 
   }
   render() {
+    if(!this.props.questStudentChart) return 'Loading...'
     return (
       <div>
         <Pie
           type='pie'
-          data={this.state.Data}
-          height={350}
-          width={350}
+          data={this.props.questStudentChart}
+          height={300}
+          width={300}
           options={{
             plugins: {
               labels: {
@@ -100,3 +66,12 @@ export default class QuestionsPieChart extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    dateRange: state.dateRange,
+    questStudentChart: state.questStudentChart
+  }
+};
+
+export default connect(mapStateToProps, {getQuestionsStudentsData})(QuestionsPieChart)
