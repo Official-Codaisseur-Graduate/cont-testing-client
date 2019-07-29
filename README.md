@@ -7,7 +7,15 @@ This app shows student progress in data transformation exercises in real time. I
 
 ![](Live-updates.gif)
 
-Four charts are available: 
+## Select Range of Data and Version of the exercise.
+The app constainst 2 selectors:
+  - **Select the Range of date.** (By default is 'Today'). It sends to the server a string ['today', 'lastWeek', 'lastMonth', 'lastYear'] and the server sends back the data contained in this range of date.
+
+  - **Select Version of exercise.** It gets data from the server to list all the different exercises versions available, when selected sends to the server a string with the version of exercises selected.
+
+Select Date and Version can be combined as the user wants, allowing always to have one date selected and look through different versions of the exercises, or vice versa, selecting on version and changing around the different Dates.
+
+## Four charts are available: 
 
 ### `number of students passing each question`
 
@@ -27,15 +35,15 @@ Shows, for every student, how many questions she/he had a passing result, and ho
 
 ### `other relevant repos`
 
-[Server](https://github.com/rafaelrolivares/continuous-student-testing-server) and [Exercises](https://github.com/kerenKi/dataTransFormationExercises).
+[Server](https://github.com/Official-Codaisseur-Graduate/cont-testing-server) and [Exercises](https://github.com/Official-Codaisseur-Graduate/data-transformation-exercise).
 
 
 ### `installation`
 
 To install and run this app:
 ```
-$ git clone git@github.com:ajvanliere/Continuous-Testing-Client.git
-$ cd Continuous-Testing-Client
+$ git clone git@github.com:Official-Codaisseur-Graduate/cont-testing-client.git
+$ cd cont-testing-client
 $ npm install
 $ npm start
 ```
