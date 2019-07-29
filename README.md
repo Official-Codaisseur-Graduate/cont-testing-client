@@ -40,13 +40,28 @@ Shows, for every student, how many questions she/he had a passing result, and ho
 
 ### `installation`
 
+## Small summary checklist of the installation.
+
 To install and run this app:
 ```
+
+1) git clone and run the server.
+https://github.com/Official-Codaisseur-Graduate/cont-testing-server
+
+
+
+2) Install the client
+
 $ git clone git@github.com:Official-Codaisseur-Graduate/cont-testing-client.git
 $ cd cont-testing-client
 $ npm install
 $ npm start
+
+3) Run the exercise Data Transformation to get your own data.
+https://github.com/Official-Codaisseur-Graduate/data-transformation-exercise
 ```
+
+
 
 ### `npm start`
 
